@@ -1,0 +1,111 @@
+/**
+ * Dynamit Code Day Punk API
+ */
+
+$max-width: 66rem;
+$breakpoint: 48rem;
+$color-black: #333;
+$color-white: #fff;
+$color-red: #E75A3A;
+$color-blue: #00AFDB;
+$color-grey: #9da3a5;
+$border-radius: 0.3em;
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+//TODO: Set up grid system with lorem ipsum
+$gutter-margin-size: 1.8;
+$maximum-columns: 4;
+$base-column-width: (100 - $gutter-margin-size * ($maximum-columns - 1))/$maximum-columns;
+
+@function column-width($column-span) {
+    @return 1% * ($base-column-width * $column-span)+($gutter-margin-size * ($column-span - 1))
+}
+
+.row,
+.column {
+    box-sizing: border-box;
+}
+
+.row {
+    &:before,
+    &:after {
+        content: " ";
+        display: table;
+    }
+    &:after {
+        clear: both;
+    }
+    margin-bottom: 2em;
+}
+
+.column {
+    position: relative;
+    float: left;
+    +.column {
+        margin-left: $gutter-margin-size * 1%;
+    }
+}
+
+@for $i from 1 through $maximum-columns {
+    .column-#{$i} {
+        width: column-width($i);
+    }
+}
+
+@media only screen and (max-width: 550px) {
+    @for $i from 1 through $maximum-columns {
+        .column-#{$i} {
+            width: auto;
+            float: none;
+        }
+    }
+    .column+.column {
+        margin-left: 0;
+    }
+}
+
+.primary-button {
+    background-color: $color-red;
+    padding: 1em;
+    border: none;
+    border-radius: $border-radius;
+    color: white;
+    &:focus,
+    &:hover {
+        background-color: $color-grey;
+    }
+}
+
+//TODO: Stylize entry point
+#dash-view {
+    max-width: $max-width;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+.beers {
+    width: 100%;
+    display: none;
+
+    img {
+        width: 100%;
+        object-fit: cover;
+        height: 16em;
+        object-fit: contain;
+        border: .1em solid black;
+        height: 16em;
+        padding: 1em;
+        box-sizing: border-box;
+    }
+
+    .content-wrapper {
+        display: flex;
+        justify-content: space-between;
+    }
+}
